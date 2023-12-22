@@ -31,3 +31,11 @@ export const getRandomProducts = (count) => {
       r;
     });
 };
+export const getProductsInCategory = (category) => {
+  return fetch(`${apiBaseURL}/products/category/${category}`)
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      return json;
+    });
+};

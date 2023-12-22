@@ -1,4 +1,3 @@
-// HomePage.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getRandomProducts } from "../../API/index.js";
@@ -15,7 +14,7 @@ const HomePage = () => {
     <div>
       <h1>Welcome to the Fake Store!</h1>
 
-      {/* Search Bar (you can replace this with your own search functionality) */}
+      {/* Search Bar  */}
       <input type="text" placeholder="Search products" />
 
       {/* Category Buttons */}
@@ -35,12 +34,15 @@ const HomePage = () => {
         <div>
           {randomProducts.map((product) => (
             <div key={product.id}>
+              <p>{product.title}</p>
               <img
                 src={product.image}
                 style={{ maxWidth: "100px" }}
                 alt={product.title}
               />
-              <p>{product.title}</p>
+              <Link to={`/products/${product.id}`}>
+                <button>View Details</button>
+              </Link>
             </div>
           ))}
         </div>
