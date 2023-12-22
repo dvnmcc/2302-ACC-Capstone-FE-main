@@ -17,3 +17,17 @@ export const getProductById = (productId) => {
       return json;
     });
 };
+
+export const getRandomProducts = (count) => {
+  return fetch(`${apiBaseURL}/products`)
+    .then((response) => response.json())
+    .then((json) => {
+      const shuffledProducts = json.sort(() => Math.random() - 0.5);
+
+      const randomProducts = shuffledProducts.slice(0, count);
+
+      console.log(randomProducts);
+      return randomProducts;
+      r;
+    });
+};

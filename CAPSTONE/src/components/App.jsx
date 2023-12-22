@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProductDetails from "./ProductDetails";
 import Products from "./Products";
-
+import HomePage from "./HomePage";
 const App = () => {
   return (
     <Router>
@@ -11,7 +11,7 @@ const App = () => {
         {/* Header or Navigation Bar can be added here */}
         <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/products" element={<Products />} />
-
+        <Route path="/" element={<HomePage />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>
