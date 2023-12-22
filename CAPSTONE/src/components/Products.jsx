@@ -1,7 +1,7 @@
 import { getAllProducts } from "../../API/index.js";
 import React from "react";
 import { useState, useEffect } from "react";
-// Use the function in your React component
+
 const Products = () => {
   const [products, setProducts] = useState([]);
 
