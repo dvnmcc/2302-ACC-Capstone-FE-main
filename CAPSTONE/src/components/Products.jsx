@@ -1,12 +1,13 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getAllProducts } from "../../API/index.js";
-import React from "react";
-import { useState, useEffect } from "react";
+import Cart from "./Cart";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    // Fetch all products when the component mounts
     handleGetAllProducts();
   }, []);
 
@@ -17,6 +18,28 @@ const Products = () => {
       })
       .catch((error) => console.error("Error:", error));
   };
+
+  const handleAddToCart = (productId) => {
+    const productInCart = cart.find((item) => item.id === productId);
+
+    if (productInCart) {
+      setCart((prevCart) =>
+        prevCart.map((item) =>
+          item.id === productId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
+    } else {
+      setCart((prevCart) => [...prevCart, { id: productId, quantity: 1 }]);
+    }
+  };
+
+  const handleRemoveFromCart = (productId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  };
+
+  console.log("Products Cart:", cart); // Move it here
 
   return (
     <div>
@@ -34,9 +57,17 @@ const Products = () => {
               alt={product.title}
               style={{ maxWidth: "100px" }}
             />
+
+            <button onClick={() => handleAddToCart(product.id)}>
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>
+
+      <Link to="/cart">Go to Cart</Link>
+
+      <Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart} />
     </div>
   );
 };

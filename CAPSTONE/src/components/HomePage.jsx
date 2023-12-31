@@ -2,6 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getRandomProducts } from "../../API/index.js";
 
+import { getAllUsers } from "../../API/index.js";
+
+const fetchAllUsers = () => {
+  getAllUsers()
+    .then((users) => {
+      console.log("Fetched users:", users);
+    })
+    .catch((error) => {
+      console.error("Error fetching users:", error);
+    });
+};
+
+fetchAllUsers();
+
 const HomePage = () => {
   const [randomProducts, setRandomProducts] = useState([]);
 
