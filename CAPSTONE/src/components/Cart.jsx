@@ -11,15 +11,12 @@ const Cart = ({ cart, handleRemoveFromCart }) => {
       fetchUserCart(userId)
         .then((cartData) => {
           console.log("Cart received in Cart component:", cartData);
-          // Assuming fetchUserCart returns the cart data correctly
-
-          // Add any other logic here based on the updated cartData
         })
         .catch((error) => {
           console.error("Error fetching user cart:", error.message);
         });
     }
-  }, [cart]); // Include cart as a dependency
+  }, [cart]);
 
   if (!cart) {
     return (
