@@ -20,6 +20,7 @@ const Login = () => {
     try {
       const response = await loginUser(credentials);
       console.log("Login Response:", response);
+      localStorage.setItem("authToken", response.token);
     } catch (error) {
       console.error("Login Error:", error.message);
     }
