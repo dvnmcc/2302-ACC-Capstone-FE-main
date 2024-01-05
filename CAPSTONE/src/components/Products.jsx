@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { getAllProducts } from "../../API/index.js";
 import Cart from "./Cart";
 
@@ -10,6 +9,12 @@ const Products = () => {
   useEffect(() => {
     handleGetAllProducts();
   }, []);
+
+  useEffect(() => {
+    console.log("Cart has been updated:", cart);
+
+    saveCartToLocalStorage();
+  }, [cart]);
 
   const handleGetAllProducts = () => {
     getAllProducts()
@@ -35,16 +40,13 @@ const Products = () => {
     }
   };
 
-  const handleRemoveFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
-  };
+  const handleRemoveFromCart = (productId) => {};
 
-  console.log("Products Cart:", cart); // Move it here
+  const saveCartToLocalStorage = () => {};
 
   return (
     <div>
       <h2>All Products</h2>
-
       {/* Display all products */}
       <div>
         {products.map((product) => (
@@ -57,16 +59,12 @@ const Products = () => {
               alt={product.title}
               style={{ maxWidth: "100px" }}
             />
-
             <button onClick={() => handleAddToCart(product.id)}>
               Add to Cart
             </button>
           </div>
         ))}
       </div>
-
-      <Link to="/cart">Go to Cart</Link>
-
       <Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart} />
     </div>
   );

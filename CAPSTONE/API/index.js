@@ -61,24 +61,46 @@ export const getCartData = () => {
     });
 };
 
-export const getUserCartData = (userId) => {
-  const finalUserId = userId || generateUniqueUserId();
+export const fetchUserCart = async (userId) => {
+  try {
+    const response = await fetch(
+      `https://fakestoreapi.com/carts/user/${userId}`
+    );
 
-  return fetch(`${apiBaseURL}/cart/user/${finalUserId}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} - ${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then((json) => {
-      console.log(json);
-      return json;
-    })
-    .catch((error) => {
-      console.error("Error fetching user cart data:", error);
-      throw error;
+    if (!response.ok) {
+      throw new Error("Error fetching user cart");
+    }
+
+    const cartData = await response.json();
+    return cartData;
+  } catch (error) {
+    console.error("Error fetching user cart:", error.message);
+    throw error;
+  }
+};
+export const updateUserCart = async (userId, products) => {
+  try {
+    const response = await fetch(`https://fakestoreapi.com/carts/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        products,
+      }),
     });
+
+    if (!response.ok) {
+      throw new Error(`Error updating user cart: ${response.statusText}`);
+    }
+
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (error) {
+    console.error("API Error:", error.message);
+    throw error;
+  }
 };
 export const registerUser = async (userData) => {
   try {

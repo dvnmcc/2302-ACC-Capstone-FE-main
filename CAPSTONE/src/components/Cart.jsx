@@ -1,31 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { getUserCartData } from "../../API/index.js";
+import { fetchUserCart } from "../../API";
 
-const Cart = ({ userId, handleRemoveFromCart }) => {
-  const [cart, setCart] = useState([]);
+const Cart = ({ cart, handleRemoveFromCart }) => {
+  console.log("Cart component rendered");
 
   useEffect(() => {
-    const fetchUserCart = async () => {
-      try {
-        const userCart = await getUserCartData(userId);
-        setCart(userCart);
-      } catch (error) {
-        console.error("Error fetching user cart:", error);
-      }
-    };
+    const userId = localStorage.getItem("userId");
 
-    fetchUserCart();
-  }, [userId]);
+    if (userId) {
+      fetchUserCart(userId)
+        .then((cartData) => {
+          console.log("Cart received in Cart component:", cartData);
+          // Assuming fetchUserCart returns the cart data correctly
+
+          // Add any other logic here based on the updated cartData
+        })
+        .catch((error) => {
+          console.error("Error fetching user cart:", error.message);
+        });
+    }
+  }, [cart]); // Include cart as a dependency
+
+  if (!cart) {
+    return (
+      <div>
+        <h2>Cart</h2>
+        <p>Loading cart...</p>
+      </div>
+    );
+  }
 
   return (
     <div>
-      <h2>Shopping Cart</h2>
+      <h2>Cart</h2>
       <ul>
         {cart.map((item) => (
           <li key={item.id}>
-            Product {item.id} - Quantity: {item.quantity}
+            Item ID: {item.id} - Quantity: {item.quantity}
             <button onClick={() => handleRemoveFromCart(item.id)}>
-              Remove from Cart
+              Remove
             </button>
           </li>
         ))}
