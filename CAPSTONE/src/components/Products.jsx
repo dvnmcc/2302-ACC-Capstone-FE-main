@@ -4,7 +4,10 @@ import Cart from "./Cart";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
 
   useEffect(() => {
     handleGetAllProducts();
@@ -12,7 +15,6 @@ const Products = () => {
 
   useEffect(() => {
     console.log("Cart has been updated:", cart);
-
     saveCartToLocalStorage();
   }, [cart]);
 
@@ -26,6 +28,7 @@ const Products = () => {
 
   const handleAddToCart = (productId) => {
     const productInCart = cart.find((item) => item.id === productId);
+    saveCartToLocalStorage();
 
     if (productInCart) {
       setCart((prevCart) =>
@@ -40,14 +43,37 @@ const Products = () => {
     }
   };
 
-  const handleRemoveFromCart = (productId) => {};
+  const handleRemoveFromCart = (productId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  };
 
-  const saveCartToLocalStorage = () => {};
+  const saveCartToLocalStorage = () => {
+    try {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } catch (error) {
+      console.error("Error saving cart to local storage:", error.message);
+    }
+  };
+  const handleIncreaseQuantity = (productId) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
 
+  const handleDecreaseQuantity = (productId) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === productId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
   return (
     <div>
       <h2>All Products</h2>
-      {/* Display all products */}
       <div>
         {products.map((product) => (
           <div key={product.id}>
@@ -65,7 +91,13 @@ const Products = () => {
           </div>
         ))}
       </div>
-      <Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart} />
+      <Cart
+        cart={cart}
+        products={products}
+        handleRemoveFromCart={handleRemoveFromCart}
+        handleIncreaseQuantity={handleIncreaseQuantity}
+        handleDecreaseQuantity={handleDecreaseQuantity}
+      />
     </div>
   );
 };
