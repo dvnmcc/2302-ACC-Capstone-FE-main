@@ -22,18 +22,33 @@ const Cart = ({
     <div>
       <h2>Cart</h2>
       <ul>
-        {cart.map((item) => (
-          <li key={item.id}>
-            Product Name:{" "}
-            {products.find((product) => product.id === item.id)?.title} -
-            Quantity: {item.quantity}
-            <button onClick={() => handleRemoveFromCart(item.id)}>
-              Remove
-            </button>
-            <button onClick={() => handleIncreaseQuantity(item.id)}>+</button>
-            <button onClick={() => handleDecreaseQuantity(item.id)}>-</button>
-          </li>
-        ))}
+        {cart.map((item) => {
+          const product = products.find((product) => product.id === item.id);
+
+          return (
+            <li key={item.id}>
+              {product && (
+                <>
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    style={{ maxWidth: "50px", marginRight: "10px" }}
+                  />
+                  Product Name: {product.title} - Quantity: {item.quantity}
+                  <button onClick={() => handleRemoveFromCart(item.id)}>
+                    Remove
+                  </button>
+                  <button onClick={() => handleIncreaseQuantity(item.id)}>
+                    +
+                  </button>
+                  <button onClick={() => handleDecreaseQuantity(item.id)}>
+                    -
+                  </button>
+                </>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

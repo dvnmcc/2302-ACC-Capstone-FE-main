@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import loginUser from "../../API";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -20,7 +21,12 @@ const Login = () => {
     try {
       const response = await loginUser(credentials);
       console.log("Login Response:", response);
+
       localStorage.setItem("authToken", response.token);
+
+      window.location.href = "/products";
+
+      console.log("User logged in");
     } catch (error) {
       console.error("Login Error:", error.message);
     }
@@ -45,7 +51,6 @@ const Login = () => {
           value={credentials.password}
           onChange={handleChange}
         />
-
         <button type="button" onClick={handleLogin}>
           Login
         </button>

@@ -26,13 +26,19 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Welcome to the Fake Store!</h1>
+      <h1>Welcome to My Store!</h1>
 
       {/* Search Bar  */}
       <input type="text" placeholder="Search products" />
 
       {/* Category Buttons */}
       <div>
+        <Link to="/login">
+          <button>Login</button>
+        </Link>
+        <Link to="/products">
+          <button>All Products</button>
+        </Link>
         <Link to="/category/electronics">
           <button>Electronics</button>
         </Link>

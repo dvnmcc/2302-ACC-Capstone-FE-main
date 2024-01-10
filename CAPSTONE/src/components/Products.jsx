@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAllProducts } from "../../API/index.js";
 import Cart from "./Cart";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -8,13 +9,16 @@ const Products = () => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
   });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     handleGetAllProducts();
+    const token = localStorage.getItem("authToken");
+    setIsLoggedIn(!!token);
   }, []);
 
   useEffect(() => {
-    console.log("Cart has been updated:", cart);
     saveCartToLocalStorage();
   }, [cart]);
 
@@ -24,6 +28,15 @@ const Products = () => {
         setProducts(products);
       })
       .catch((error) => console.error("Error:", error));
+  };
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    console.log("User logged in");
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setIsLoggedIn(false);
+    console.log("User logged out");
   };
 
   const handleAddToCart = (productId) => {
@@ -71,11 +84,34 @@ const Products = () => {
       )
     );
   };
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <h2>All Products</h2>
+      <input
+        type="text"
+        placeholder="Search products"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <div>
-        {products.map((product) => (
+        {isLoggedIn ? (
+          <button onClick={handleLogout}>Logout</button>
+        ) : (
+          <Link to="/login">
+            <button onClick={handleLogin}>Login</button>
+          </Link>
+        )}
+        <Link to="/category/electronics">
+          <button>Electronics</button>
+        </Link>
+        <Link to="/category/clothing">
+          <button>Clothing</button>
+        </Link>
+        {filteredProducts.map((product) => (
           <div key={product.id}>
             <h3>{product.title}</h3>
             <p>{product.description}</p>
