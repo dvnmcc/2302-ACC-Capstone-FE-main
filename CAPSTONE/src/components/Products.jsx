@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getAllProducts } from "../../API/index.js";
 import Cart from "./Cart";
 import { Link } from "react-router-dom";
+import Checkout from "./Checkout.jsx";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -29,10 +30,12 @@ const Products = () => {
       })
       .catch((error) => console.error("Error:", error));
   };
+
   const handleLogin = () => {
     setIsLoggedIn(true);
     console.log("User logged in");
   };
+
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     setIsLoggedIn(false);
@@ -43,7 +46,6 @@ const Products = () => {
     const authToken = localStorage.getItem("authToken");
 
     if (!authToken) {
-      // If not authenticated, redirect to the login page or show a modal
       window.location.href = "/login";
       return;
     }
@@ -75,6 +77,7 @@ const Products = () => {
       console.error("Error saving cart to local storage:", error.message);
     }
   };
+
   const handleIncreaseQuantity = (productId) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
@@ -92,6 +95,11 @@ const Products = () => {
       )
     );
   };
+  const handleClearCart = () => {
+    setCart([]);
+    saveCartToLocalStorage();
+  };
+
   const filteredProducts = products.filter((product) =>
     product.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -107,7 +115,9 @@ const Products = () => {
       />
       <div>
         {isLoggedIn ? (
-          <button onClick={handleLogout}>Logout</button>
+          <>
+            <button onClick={handleLogout}>Logout</button>
+          </>
         ) : (
           <Link to="/login">
             <button onClick={handleLogin}>Login</button>
@@ -142,6 +152,7 @@ const Products = () => {
         handleIncreaseQuantity={handleIncreaseQuantity}
         handleDecreaseQuantity={handleDecreaseQuantity}
       />
+      <Checkout cart={cart} onCheckoutComplete={handleClearCart} />
     </div>
   );
 };

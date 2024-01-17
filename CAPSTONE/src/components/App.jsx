@@ -6,7 +6,7 @@ import Products from "./Products";
 import HomePage from "./HomePage";
 import Electronics from "./Electronics";
 import Clothing from "./Clothing";
-
+import Checkout from "./Checkout";
 import Register from "./Register";
 import Login from "./Login";
 
@@ -20,7 +20,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/category/electronics" element={<Electronics />} />
         <Route path="/category/clothing" element={<Clothing />} />
-
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Cart = ({
   cart,
@@ -6,6 +7,7 @@ const Cart = ({
   handleRemoveFromCart,
   handleIncreaseQuantity,
   handleDecreaseQuantity,
+  handleCheckout,
 }) => {
   console.log("Cart received in Cart component:", cart);
 
