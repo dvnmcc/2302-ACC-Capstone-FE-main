@@ -40,6 +40,14 @@ const Products = () => {
   };
 
   const handleAddToCart = (productId) => {
+    const authToken = localStorage.getItem("authToken");
+
+    if (!authToken) {
+      // If not authenticated, redirect to the login page or show a modal
+      window.location.href = "/login";
+      return;
+    }
+
     const productInCart = cart.find((item) => item.id === productId);
     saveCartToLocalStorage();
 
