@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getRandomProducts } from "../../API/index.js";
-
 import { getAllUsers } from "../../API/index.js";
+import "./homePage.css";
 
 const fetchAllUsers = () => {
   getAllUsers()
@@ -18,24 +18,30 @@ fetchAllUsers();
 
 const HomePage = () => {
   const [randomProducts, setRandomProducts] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Fetch random products when the component mounts
     getRandomProducts(9).then((products) => setRandomProducts(products));
+
+    const token = localStorage.getItem("authToken");
+    setIsLoggedIn(!!token);
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <h1>Welcome to My Store!</h1>
 
-      {/* Search Bar  */}
-      <input type="text" placeholder="Search products" />
-
       {/* Category Buttons */}
-      <div>
-        <Link to="/login">
-          <button>Login</button>
-        </Link>
+      <div className="category-buttons">
+        {isLoggedIn ? (
+          <button onClick={() => localStorage.removeItem("authToken")}>
+            Logout
+          </button>
+        ) : (
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+        )}
         <Link to="/products">
           <button>All Products</button>
         </Link>
@@ -50,17 +56,17 @@ const HomePage = () => {
 
       {/* Display Random Featured Products */}
       <div>
-        <h2>Featured Products</h2>
-        <div>
+        <h2 className="featured-title">Featured Products</h2>
+        <div className="featured-products">
           {randomProducts.map((product) => (
-            <div key={product.id}>
-              <p>{product.title}</p>
+            <div key={product.id} className="product-card">
+              <p className="product-title">{product.title}</p>
               <img
                 src={product.image}
-                style={{ maxWidth: "100px" }}
+                className="product-image"
                 alt={product.title}
               />
-              <Link to={`/products/${product.id}`}>
+              <Link to={`/products/${product.id}`} className="product-link">
                 <button>View Details</button>
               </Link>
             </div>
