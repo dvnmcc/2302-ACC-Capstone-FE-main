@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./checkout.css";
 
 const Checkout = ({ cart, onCheckoutComplete }) => {
   console.log("Cart in Checkout component:", cart);
@@ -13,7 +14,7 @@ const Checkout = ({ cart, onCheckoutComplete }) => {
 
   const displayDummyForm = () => {
     return (
-      <div>
+      <div className="checkout-form">
         <h3>Checkout Form</h3>
 
         <form>

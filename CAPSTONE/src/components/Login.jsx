@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import loginUser from "../../API";
 import { Link } from "react-router-dom";
+import "./login.css";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -33,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Login</h2>
       <form>
         <label>Username:</label>

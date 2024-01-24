@@ -1,11 +1,14 @@
+import React, { useState } from "react";
 import { registerUser } from "../../API";
-import { useState } from "react";
+import "./register.css";
+
 const Register = () => {
   const [userData, setUserData] = useState({
     email: "",
     username: "",
     password: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -26,7 +29,7 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Registration Form</h2>
       <form>
         <label>Email:</label>

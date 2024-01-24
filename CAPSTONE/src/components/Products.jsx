@@ -3,6 +3,7 @@ import { getAllProducts } from "../../API/index.js";
 import Cart from "./Cart";
 import { Link } from "react-router-dom";
 import Checkout from "./Checkout.jsx";
+import "./homePage.css";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -105,7 +106,7 @@ const Products = () => {
   );
 
   return (
-    <div>
+    <div className="container">
       <h2>All Products</h2>
       <input
         type="text"
@@ -113,7 +114,7 @@ const Products = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <div>
+      <div className="category-buttons">
         {isLoggedIn ? (
           <>
             <button onClick={handleLogout}>Logout</button>
@@ -129,17 +130,23 @@ const Products = () => {
         <Link to="/category/clothing">
           <button>Clothing</button>
         </Link>
+      </div>
+
+      <div className="featured-products">
         {filteredProducts.map((product) => (
-          <div key={product.id}>
-            <h3>{product.title}</h3>
-            <p>{product.description}</p>
-            <p>Price: ${product.price}</p>
+          <div key={product.id} className="product-card">
+            <h3 className="product-title">{product.title}</h3>
+            {/* <p className="product-description">{product.description}</p> */}
+            <p className="product-price">Price: ${product.price}</p>
             <img
               src={product.image}
               alt={product.title}
-              style={{ maxWidth: "100px" }}
+              className="product-image"
             />
-            <button onClick={() => handleAddToCart(product.id)}>
+            <button
+              onClick={() => handleAddToCart(product.id)}
+              className="add-to-cart-button"
+            >
               Add to Cart
             </button>
           </div>

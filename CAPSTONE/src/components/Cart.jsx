@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import "./cart.css";
 
 const Cart = ({
   cart,
@@ -7,7 +7,6 @@ const Cart = ({
   handleRemoveFromCart,
   handleIncreaseQuantity,
   handleDecreaseQuantity,
-  handleCheckout,
 }) => {
   console.log("Cart received in Cart component:", cart);
 
@@ -19,6 +18,10 @@ const Cart = ({
       </div>
     );
   }
+  const total = cart.reduce((acc, item) => {
+    const product = products.find((product) => product.id === item.id);
+    return acc + (product ? item.quantity * product.price : 0);
+  }, 0);
 
   return (
     <div>
@@ -28,30 +31,53 @@ const Cart = ({
           const product = products.find((product) => product.id === item.id);
 
           return (
-            <li key={item.id}>
+            <li key={item.id} className="cart-item">
               {product && (
                 <>
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    style={{ maxWidth: "50px", marginRight: "10px" }}
-                  />
-                  Product Name: {product.title} - Quantity: {item.quantity}
-                  <button onClick={() => handleRemoveFromCart(item.id)}>
-                    Remove
-                  </button>
-                  <button onClick={() => handleIncreaseQuantity(item.id)}>
-                    +
-                  </button>
-                  <button onClick={() => handleDecreaseQuantity(item.id)}>
-                    -
-                  </button>
+                  <div className="cart-item-details">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="cart-item-image"
+                    />
+                    <div>
+                      <p>Product Name: {product.title}</p>
+                      <p>Quantity: {item.quantity}</p>
+                      <p>Price: ${product.price.toFixed(2)}</p>
+                    </div>
+                  </div>
+                  <div className="cart-item-actions">
+                    <div className="quantity-controls">
+                      <button
+                        className="quantity-button"
+                        onClick={() => handleDecreaseQuantity(item.id)}
+                      >
+                        -
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button
+                        className="quantity-button"
+                        onClick={() => handleIncreaseQuantity(item.id)}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      className="remove-button"
+                      onClick={() => handleRemoveFromCart(item.id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </>
               )}
             </li>
           );
         })}
       </ul>
+      <div className="cart-total">
+        <p>Total: ${total.toFixed(2)}</p>
+      </div>
     </div>
   );
 };
