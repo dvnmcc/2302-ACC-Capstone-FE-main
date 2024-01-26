@@ -1,35 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import '../style/index.css'
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ProductDetails from "./ProductDetails";
+import Products from "./Products";
+import HomePage from "./HomePage";
+import Electronics from "./Electronics";
+import Clothing from "./Clothing";
+import Checkout from "./Checkout";
+import Register from "./Register";
+import Login from "./Login";
 
 const App = () => {
-  const [pokemon, setPokemon] = useState([])
-
-  useEffect(() => {
-    const getAllData = async () => {
-      try {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20')
-        const { results } = await response.json()
-        setPokemon(results)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    getAllData()
-  }, [])
-
   return (
-    <div>
-      <p>Hello World</p>
-      {!!pokemon.length &&
-        pokemon.map((el, i) => {
-          return (
-            <div key={i}>
-              <h1>{el.name}</h1>
-            </div>
-          )
-        })}
-    </div>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/products/:productId" element={<ProductDetails />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/category/electronics" element={<Electronics />} />
+        <Route path="/category/clothing" element={<Clothing />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
