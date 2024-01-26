@@ -141,15 +141,16 @@ const Products = () => {
               alt={product.title}
               className="product-image"
             />
-            <Link to={`/products/${product.id}`} className="product-link">
-              <button>View Details</button>
-            </Link>
+
             <button
               onClick={() => handleAddToCart(product.id)}
               className="add-to-cart-button"
             >
               Add to Cart
             </button>
+            <Link to={`/products/${product.id}`} className="product-link">
+              <button>View Details</button>
+            </Link>
           </div>
         ))}
       </div>
