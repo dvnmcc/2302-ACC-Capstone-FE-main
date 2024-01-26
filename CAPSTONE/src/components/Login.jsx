@@ -1,6 +1,8 @@
+// Login.jsx
+
 import React, { useState } from "react";
 import loginUser from "../../API";
-import { Link } from "react-router-dom";
+
 import "./login.css";
 
 const Login = () => {
@@ -26,15 +28,13 @@ const Login = () => {
       localStorage.setItem("authToken", response.token);
 
       window.location.href = "/products";
-
-      console.log("User logged in");
     } catch (error) {
       console.error("Login Error:", error.message);
     }
   };
 
   return (
-    <div className="container">
+    <div className="login-form">
       <h2>Login</h2>
       <form>
         <label>Username:</label>

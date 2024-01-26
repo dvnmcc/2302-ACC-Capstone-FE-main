@@ -22,16 +22,15 @@ const Register = () => {
     try {
       const response = await registerUser(userData);
       const newUserId = response.id;
-      console.log("Newly Registered User ID:", newUserId);
     } catch (error) {
       console.error("Error:", error.message);
     }
   };
 
   return (
-    <div className="container">
-      <h2>Registration Form</h2>
-      <form>
+    <div className="register-container">
+      <h2 className="register-form">Registration Form</h2>
+      <form className="register-form">
         <label>Email:</label>
         <input
           type="email"

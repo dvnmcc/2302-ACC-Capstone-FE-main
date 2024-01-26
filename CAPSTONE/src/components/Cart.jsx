@@ -8,8 +8,6 @@ const Cart = ({
   handleIncreaseQuantity,
   handleDecreaseQuantity,
 }) => {
-  console.log("Cart received in Cart component:", cart);
-
   if (!cart || !products) {
     return (
       <div>

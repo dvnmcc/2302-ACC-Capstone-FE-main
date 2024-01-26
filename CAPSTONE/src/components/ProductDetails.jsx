@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { getProductById } from "../../API/index.js";
+import "./details.css";
 
 const ProductDetails = () => {
   const [productDetails, setProductDetails] = useState(null);
   const { productId } = useParams();
   const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("authToken");
 
   useEffect(() => {
     getProductById(productId)
@@ -20,17 +22,37 @@ const ProductDetails = () => {
   }, [productId, navigate]);
 
   return (
-    <div>
-      {/* Display product details */}
+    <div className="product-details-container">
+      <div className="category-buttons">
+        {isLoggedIn ? (
+          <button onClick={() => localStorage.removeItem("authToken")}>
+            Logout
+          </button>
+        ) : (
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+        )}
+        <Link to="/products">
+          <button>All Products</button>
+        </Link>
+        <Link to="/category/electronics">
+          <button>Electronics</button>
+        </Link>
+        <Link to="/category/clothing">
+          <button>Clothing</button>
+        </Link>
+      </div>
+
       {productDetails && (
         <div>
           <h2>{productDetails.title}</h2>
-          <p>{productDetails.description}</p>
+          <p className="description">{productDetails.description}</p>
           <p>Price: ${productDetails.price}</p>
           <img
             src={productDetails.image}
             alt={productDetails.title}
-            style={{ maxWidth: "100px" }}
+            style={{ maxWidth: "30%" }}
           />
         </div>
       )}

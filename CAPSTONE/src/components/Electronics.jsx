@@ -128,7 +128,6 @@ const Electronics = () => {
         ))}
       </div>
 
-      {/* Display the Cart component with necessary props */}
       <Cart
         cart={cart}
         products={electronicsProducts}
@@ -138,7 +137,6 @@ const Electronics = () => {
       />
       <Checkout cart={cart} onCheckoutComplete={handleClearCart} />
 
-      {/* Add a link to go back to the homepage */}
       <Link to="/">Go back to homepage</Link>
     </div>
   );

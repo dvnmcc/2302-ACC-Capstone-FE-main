@@ -34,13 +34,11 @@ const Products = () => {
 
   const handleLogin = () => {
     setIsLoggedIn(true);
-    console.log("User logged in");
   };
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     setIsLoggedIn(false);
-    console.log("User logged out");
   };
 
   const handleAddToCart = (productId) => {
@@ -136,13 +134,16 @@ const Products = () => {
         {filteredProducts.map((product) => (
           <div key={product.id} className="product-card">
             <h3 className="product-title">{product.title}</h3>
-            {/* <p className="product-description">{product.description}</p> */}
+
             <p className="product-price">Price: ${product.price}</p>
             <img
               src={product.image}
               alt={product.title}
               className="product-image"
             />
+            <Link to={`/products/${product.id}`} className="product-link">
+              <button>View Details</button>
+            </Link>
             <button
               onClick={() => handleAddToCart(product.id)}
               className="add-to-cart-button"

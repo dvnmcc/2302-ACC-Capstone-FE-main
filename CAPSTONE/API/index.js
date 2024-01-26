@@ -5,7 +5,6 @@ export const getAllUsers = () => {
   return fetch(`${apiBaseURL}/users`)
     .then((response) => response.json())
     .then((json) => {
-      console.log("All users:", json);
       return json;
     })
     .catch((error) => {
@@ -18,7 +17,6 @@ export const getAllProducts = () => {
   return fetch(`${apiBaseURL}/products`)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json);
       return json;
     });
 };
@@ -27,7 +25,6 @@ export const getProductById = (productId) => {
   return fetch(`${apiBaseURL}/products/${productId}`)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json);
       return json;
     });
 };
@@ -40,7 +37,6 @@ export const getRandomProducts = (count) => {
 
       const randomProducts = shuffledProducts.slice(0, count);
 
-      console.log(randomProducts);
       return randomProducts;
     });
 };
@@ -48,7 +44,6 @@ export const getProductsInCategory = (category) => {
   return fetch(`${apiBaseURL}/products/category/${category}`)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json);
       return json;
     });
 };
@@ -56,7 +51,6 @@ export const getCartData = () => {
   return fetch(`${apiBaseURL}/carts`)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json);
       return json;
     });
 };
@@ -117,7 +111,7 @@ export const registerUser = async (userData) => {
     }
 
     const data = await response.json();
-    console.log(data);
+
     return data;
   } catch (error) {
     console.error("Error:", error.message);

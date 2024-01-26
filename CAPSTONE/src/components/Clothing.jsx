@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getProductsInCategory } from "../../API/index.js";
 import Cart from "./Cart.jsx";
 import Checkout from "./Checkout.jsx";
-import "./homePage.css"; // Import the shared CSS file
+import "./homePage.css";
 
 const Clothing = () => {
   const [cart, setCart] = useState(() => {
@@ -91,7 +91,6 @@ const Clothing = () => {
     <div className="container">
       <h2>Clothing Products</h2>
 
-      {/* Navigation Buttons */}
       <div className="category-buttons">
         <Link to={isLoggedIn ? "/logout" : "/login"}>
           <button>{isLoggedIn ? "Logout" : "Login"}</button>
@@ -102,11 +101,8 @@ const Clothing = () => {
         <Link to="/category/electronics">
           <button>Electronics</button>
         </Link>
-
-        {/* Add more category buttons as needed */}
       </div>
 
-      {/* Remove the search bar */}
       <div className="featured-products">
         {clothingProducts.map((product) => (
           <div key={product.id} className="product-card">
@@ -138,7 +134,6 @@ const Clothing = () => {
       />
       <Checkout cart={cart} onCheckoutComplete={handleClearCart} />
 
-      {/* Add a link to go back to the homepage */}
       <Link to="/">Go back to homepage</Link>
     </div>
   );

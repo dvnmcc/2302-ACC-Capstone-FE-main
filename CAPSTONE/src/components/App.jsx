@@ -13,7 +13,6 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Header or Navigation Bar will be added here */}
         <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/products" element={<Products />} />
         <Route path="/" element={<HomePage />} />
@@ -22,8 +21,6 @@ const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-
-        {/* Add more routes as needed */}
       </Routes>
     </Router>
   );

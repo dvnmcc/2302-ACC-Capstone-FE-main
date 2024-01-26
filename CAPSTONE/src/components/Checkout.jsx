@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "./checkout.css";
 
 const Checkout = ({ cart, onCheckoutComplete }) => {
-  console.log("Cart in Checkout component:", cart);
-
   const [formData, setFormData] = useState({
     fullName: "",
     address: "",
@@ -78,9 +76,7 @@ const Checkout = ({ cart, onCheckoutComplete }) => {
     );
   };
 
-  const handleCheckout = () => {
-    console.log("Cart cleared. Implement your clearCart logic here.");
-  };
+  const handleCheckout = () => {};
 
   const handleCompletePurchase = () => {
     setFormData({

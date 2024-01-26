@@ -6,9 +6,7 @@ import "./homePage.css";
 
 const fetchAllUsers = () => {
   getAllUsers()
-    .then((users) => {
-      console.log("Fetched users:", users);
-    })
+    .then((users) => {})
     .catch((error) => {
       console.error("Error fetching users:", error);
     });
@@ -31,7 +29,6 @@ const HomePage = () => {
     <div className="container">
       <h1>Welcome to My Store!</h1>
 
-      {/* Category Buttons */}
       <div className="category-buttons">
         {isLoggedIn ? (
           <button onClick={() => localStorage.removeItem("authToken")}>
@@ -51,10 +48,8 @@ const HomePage = () => {
         <Link to="/category/clothing">
           <button>Clothing</button>
         </Link>
-        {/* Add more category buttons as needed */}
       </div>
 
-      {/* Display Random Featured Products */}
       <div>
         <h2 className="featured-title">Featured Products</h2>
         <div className="featured-products">
