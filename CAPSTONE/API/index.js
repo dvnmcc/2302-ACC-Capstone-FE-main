@@ -5,8 +5,10 @@ export const getAllUsers = () => {
   return fetch(`${apiBaseURL}/users`)
     .then((response) => response.json())
     .then((json) => {
+      console.log(json);
       return json;
     })
+
     .catch((error) => {
       console.error("Error fetching all users:", error);
       throw error;
