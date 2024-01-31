@@ -5,6 +5,7 @@ import { getAllUsers } from "../../API/index.js";
 import Cart from "./Cart.jsx";
 import Checkout from "./Checkout.jsx";
 import "./homePage.css";
+//added cart
 const HomePage = () => {
   const [cart, setCart] = useState(() => {
     const storedCart = localStorage.getItem("cart");
